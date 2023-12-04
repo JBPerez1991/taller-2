@@ -1,0 +1,75 @@
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+class Vuelo {
+    private int asientosDisponibles;
+    private Date tiempoLimiteReserva;
+    private double precioPasaje;
+    private Map<String, Integer> equipajePasajeros; // Mapa de equipaje por pasajero
+
+    public Vuelo(int asientosDisponibles, Date tiempoLimiteReserva, double precioPasaje) {
+        this.asientosDisponibles = asientosDisponibles;
+        this.tiempoLimiteReserva = tiempoLimiteReserva;
+        this.precioPasaje = precioPasaje;
+        this.equipajePasajeros = new HashMap<>();
+    }
+
+    public boolean reservarAsiento(int cantidadAsientos) {
+        if (asientosDisponibles >= cantidadAsientos) {
+            // Realizar la reserva, descontar los asientos disponibles, guardar los datos del pasajero, etc.
+            asientosDisponibles -= cantidadAsientos;
+            return true;
+        } else {
+            System.out.println("No hay suficientes asientos disponibles.");
+            return false;
+        }
+    }
+
+    public boolean cancelarReserva(Date fechaCancelacion) {
+        if (fechaCancelacion.before(tiempoLimiteReserva)) {
+            // Lógica para cancelar sin multa
+            return true;
+        } else {
+            // Aplicar multa del 20%
+            // Lógica para aplicar la multa
+            return true; // o false si no se puede cancelar
+        }
+    }
+
+    public boolean agregarEquipaje(String pasajero, int pesoEquipaje) {
+        // Verificar restricciones de cantidad y peso del equipaje
+        // Lógica para agregar equipaje al mapa por pasajero
+        return true; // o false si no se puede agregar el equipaje
+    }
+
+    // Otros métodos y restricciones para manejar el vuelo
+}
+
+public class SistemaReservaVuelos {
+    public static void main(String[] args) {
+        // Crear un vuelo con 100 asientos disponibles, límite de reserva en una fecha y precio de pasaje de $200
+        Vuelo vuelo = new Vuelo(100, new Date(2023, 12, 31), 200.0);
+
+        // Ejemplo de reserva de 2 asientos
+        if (vuelo.reservarAsiento(2)) {
+            System.out.println("Reserva exitosa para 2 asientos.");
+        }
+
+        // Ejemplo de cancelación con fecha actual
+        Date fechaActual = new Date();
+        if (vuelo.cancelarReserva(fechaActual)) {
+            System.out.println("Reserva cancelada sin multa.");
+        } else {
+            System.out.println("No se puede cancelar la reserva.");
+        }
+
+        // Ejemplo de agregar equipaje para un pasajero
+        if (vuelo.agregarEquipaje("NombrePasajero", 20)) {
+            System.out.println("Equipaje agregado exitosamente.");
+        } else {
+            System.out.println("No se puede agregar el equipaje.");
+        }
+    }
+}
+
